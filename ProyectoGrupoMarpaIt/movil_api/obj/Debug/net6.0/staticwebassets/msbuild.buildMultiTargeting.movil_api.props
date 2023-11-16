@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\movil_api.props" />
+</Project>
