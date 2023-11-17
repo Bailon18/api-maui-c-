@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="movil_app.Page.InicioPage"
+             Title="InicioPage">
+    <Grid BackgroundColor="Silver">
+        <Path Stroke="#00BFFF"
+          Data="m0.00001,333.49997l98,-95.99997l-96.99999,1.02125l-1,94.97872z" Fill="#00BFFF"/>
+        <ScrollView>
+            <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+                <Label
+                Text="Bienvenidos!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="42"
+                FontFamily="Chunk Five Print"
+                HorizontalOptions="Center" />
+                <Image
+                Source="grupomarpait.png"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+                <Label
+                Text="Mision" 
+                FontFamily="Chunk Five Print"
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="18"
+                HorizontalOptions="Center"
+                Margin="0,10,0,0"/>
+
+                <Label
+                Text="Difundir tecnologías inteligentes y ecológicas que contribuyan tanto al bienestar de las personas como a la eficiencia y seguridad de las empresas de nuestro país."
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="14"
+                VerticalTextAlignment="Start"
+                HorizontalTextAlignment="Start"
+                HorizontalOptions="StartAndExpand"/>
+
+                <Label
+                 Text="Vision"
+                 FontFamily="Chunk Five Print"
+                 SemanticProperties.HeadingLevel="Level2"
+                 FontSize="18"
+                 HorizontalOptions="Center" />
+                <Label
+                  Text="Ser el integrador de tecnologicas de la información, telecomunicaciones y seguridad más reconocido y confiable del país."
+                  SemanticProperties.HeadingLevel="Level2"
+                  FontSize="14"
+                  VerticalTextAlignment="Start"
+                  HorizontalTextAlignment="Start"
+                  HorizontalOptions="StartAndExpand"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

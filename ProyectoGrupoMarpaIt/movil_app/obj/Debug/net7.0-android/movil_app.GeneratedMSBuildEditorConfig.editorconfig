@@ -12,33 +12,57 @@ build_property.EnableSingleFileAnalyzer = true
 build_property.EnableTrimAnalyzer = false
 build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = movil_app
-build_property.ProjectDir = C:\Users\user\Desktop\caty\ProyectoGrupoMarpaIt\movil_app\
+build_property.ProjectDir = C:\Users\user\Documents\Proyecto-movil-MIUI-Mexico\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\
 
-[C:/Users/user/Desktop/caty/ProyectoGrupoMarpaIt/movil_app/App.xaml]
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = movil_app.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/user/Desktop/caty/ProyectoGrupoMarpaIt/movil_app/AppShell.xaml]
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = movil_app.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/user/Desktop/caty/ProyectoGrupoMarpaIt/movil_app/MainPage.xaml]
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = movil_app.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
-[C:/Users/user/Desktop/caty/ProyectoGrupoMarpaIt/movil_app/Resources/Styles/Colors.xaml]
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Page/InicioPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.InicioPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Page\InicioPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Page\InicioPage.xaml
+
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Page/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Page\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Page\LoginPage.xaml
+
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Page/PermisosPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.PermisosPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Page\PermisosPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Page\PermisosPage.xaml
+
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Page/UsuariosPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.UsuariosPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Page\UsuariosPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Page\UsuariosPage.xaml
+
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/user/Desktop/caty/ProyectoGrupoMarpaIt/movil_app/Resources/Styles/Styles.xaml]
+[C:/Users/user/Documents/Proyecto-movil-MIUI-Mexico/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml

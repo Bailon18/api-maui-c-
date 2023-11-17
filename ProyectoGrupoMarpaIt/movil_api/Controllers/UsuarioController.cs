@@ -117,6 +117,7 @@ namespace movil_api.Controllers
             }
         }
 
+
         [HttpGet("departamento/{nombreDepartamento}")]
         public async Task<ActionResult<int>> ObtenerDepartamentoIdPorNombre(string nombreDepartamento)
         {

@@ -3,39 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="movil_app.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
+
+    <Grid BackgroundColor="Silver">
+        <Path Stroke="#00BFFF"
+          Data="m0.00001,333.49997l98,-95.99997l-96.99999,1.02125l-1,94.97872z" Fill="#00BFFF"/>
+        <ScrollView>
+            <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                <Label
+                Text="Bienvenidos!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="42"
+                FontFamily="Chunk Five Print"
+                HorizontalOptions="Center" />
+                <Image
+                Source="grupomarpait.png"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
+                <Label
+                Text="Mision" 
+                FontFamily="Chunk Five Print"
                 SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Margin="0,10,0,0"/>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                <Label
+                Text="Difundir tecnologías inteligentes y ecológicas que contribuyan tanto al bienestar de las personas como a la eficiencia y seguridad de las empresas de nuestro país."
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="14"
+                VerticalTextAlignment="Start"
+                HorizontalTextAlignment="Start"
+                HorizontalOptions="StartAndExpand"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                <Label
+                 Text="Vision"
+                 FontFamily="Chunk Five Print"
+                 SemanticProperties.HeadingLevel="Level2"
+                 FontSize="18"
+                 HorizontalOptions="Center" />
+                <Label
+                  Text="Ser el integrador de tecnologicas de la información, telecomunicaciones y seguridad más reconocido y confiable del país."
+                  SemanticProperties.HeadingLevel="Level2"
+                  FontSize="14"
+                  VerticalTextAlignment="Start"
+                  HorizontalTextAlignment="Start"
+                  HorizontalOptions="StartAndExpand"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 
 </ContentPage>

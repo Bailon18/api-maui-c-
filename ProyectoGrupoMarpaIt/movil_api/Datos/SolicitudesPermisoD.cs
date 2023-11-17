@@ -108,43 +108,144 @@ namespace movil_api.Datos
             return lista;
         }
 
+        public async Task<bool> insertarSolicitudCompleta(SolicitudCompletaModel solicitudCompletaModel)
+        {
+            try
+            {
+                SolicitudesPermisoModel solicitudesPermisoModel = solicitudCompletaModel.Solicitud;
 
-        public async Task<bool> InsertarSolicitudPermiso(int usuarioId, string motivo, string tipoPermiso,
-                                                         bool cuentaVacaciones, bool cuentaDiasLaborales,
-                                                         bool goceSueldo)
+                int solicitudId = await InsertarSolicitudPermiso(solicitudesPermisoModel);
+
+                if (solicitudId > 0)
+                {
+                    if (solicitudesPermisoModel.tipo_permiso == "Dias")
+                    {
+                        DetallesSolicitudDiasModel detallesSolicitudDiasModel = solicitudCompletaModel.DetallesDias;
+                        detallesSolicitudDiasModel.SolicitudId = solicitudId;
+
+                        bool detallesInsertados = await InsertarDetallesSolicitudDias(detallesSolicitudDiasModel);
+
+            
+                        return detallesInsertados;
+                    }
+                    else if (solicitudesPermisoModel.tipo_permiso == "Horas")
+                    {
+                        DetallesSolicitudHorasModel detallesSolicitudHorasModel = solicitudCompletaModel.DetallesHoras;
+                        detallesSolicitudHorasModel.SolicitudId = solicitudId;
+
+                  
+                        bool detallesInsertados = await InsertarDetallesSolicitudHoras(detallesSolicitudHorasModel);
+
+        
+                        return detallesInsertados;
+                    }
+                }
+            }
+            catch (Exception ex) { 
+            
+                return false;
+            }
+
+            return false;
+        }
+
+
+        public async Task<int> InsertarSolicitudPermiso(SolicitudesPermisoModel solicitud)
         {
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("INSERT INTO Solicitudes_Permiso (usuario_id, motivo, cuenta_vacaciones, cuenta_dias_laborales, goce_sueldo, tipo_permiso) VALUES (@usuario_id, @motivo, @cuenta_vacaciones, @cuenta_dias_laborales, @goce_sueldo, @tipo_permiso); SELECT SCOPE_IDENTITY()", sql))
                 {
                     await sql.OpenAsync();
-                    using (var cmd = new SqlCommand(@"INSERT INTO Solicitudes_Permiso 
-                                (usuario_id, motivo, estado_aprobacion, cuenta_vacaciones, cuenta_dias_laborales, goce_sueldo, tipo_permiso, fecha_solicitud) 
-                                VALUES 
-                                (@usuarioId, @motivo, 'en_espera', @cuentaVacaciones, @cuentaDiasLaborales, @goceSueldo, @tipoPermiso, GETDATE())", sql))
-                    {
-                        cmd.Parameters.AddWithValue("@usuarioId", usuarioId);
-                        cmd.Parameters.AddWithValue("@motivo", motivo);
-                        cmd.Parameters.AddWithValue("@tipoPermiso", tipoPermiso);
-                        cmd.Parameters.AddWithValue("@cuentaVacaciones", cuentaVacaciones);
-                        cmd.Parameters.AddWithValue("@cuentaDiasLaborales", cuentaDiasLaborales);
-                        cmd.Parameters.AddWithValue("@goceSueldo", goceSueldo);
-                        cmd.Parameters.AddWithValue("@tipoPermiso", tipoPermiso);
 
-                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
-                        return rowsAffected > 0;
-                    }
+                    cmd.Parameters.AddWithValue("@usuario_id", solicitud.usuario_id);
+                    cmd.Parameters.AddWithValue("@motivo", solicitud.motivo);
+                    cmd.Parameters.AddWithValue("@cuenta_vacaciones", solicitud.cuenta_vacaciones);
+                    cmd.Parameters.AddWithValue("@cuenta_dias_laborales", solicitud.cuenta_dias_laborales);
+                    cmd.Parameters.AddWithValue("@goce_sueldo", solicitud.goce_sueldo);
+                    cmd.Parameters.AddWithValue("@tipo_permiso", solicitud.tipo_permiso);
+
+                    int solicitudId = Convert.ToInt32(await cmd.ExecuteScalarAsync());
+                    return solicitudId;
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                Console.WriteLine($"Error al insertar solicitud de permiso: {ex.Message}");
+                throw;
+            }
+        }
+
+        private async Task<bool> InsertarDetallesSolicitudDias(DetallesSolicitudDiasModel detallesDias)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("INSERT INTO Detalles_Solicitud_Dias (solicitud_id, fecha_inicio, fecha_fin) VALUES (@solicitud_id, @fecha_inicio, @fecha_fin)", sql))
+                {
+                    await sql.OpenAsync();
+
+                    cmd.Parameters.AddWithValue("@solicitud_id", detallesDias.SolicitudId);
+                    cmd.Parameters.AddWithValue("@fecha_inicio", detallesDias.FechaInicio);
+                    cmd.Parameters.AddWithValue("@fecha_fin", detallesDias.FechaFin);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al insertar detalles por días: {ex.Message}");
+                throw;
+            }
+        }
+
+        private async Task<bool> InsertarDetallesSolicitudHoras(DetallesSolicitudHorasModel detallesHoras)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("INSERT INTO Detalles_Solicitud_Horas (solicitud_id, hora_inicio, hora_fin) VALUES (@solicitud_id, @hora_inicio, @hora_fin)", sql))
+                {
+                    await sql.OpenAsync();
+
+                    cmd.Parameters.AddWithValue("@solicitud_id", detallesHoras.SolicitudId);
+                    cmd.Parameters.AddWithValue("@hora_inicio", detallesHoras.HoraInicio);
+                    cmd.Parameters.AddWithValue("@hora_fin", detallesHoras.HoraFin);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al insertar detalles por horas: {ex.Message}");
+                throw;
             }
         }
 
 
+        public async Task<bool> EliminarSolicitudPermiso(int id)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("DELETE FROM Solicitudes_Permiso WHERE solicitud_id = @id", sql))
+                {
+                    await sql.OpenAsync();
+                    cmd.Parameters.AddWithValue("@id", id);
 
-
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar Solicitudes_Permiso: {ex.Message}");
+                throw;
+            }
+        }
 
     }
 

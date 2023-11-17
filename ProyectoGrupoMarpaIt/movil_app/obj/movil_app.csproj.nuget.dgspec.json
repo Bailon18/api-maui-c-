@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\caty\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj": {}
+    "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\caty\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj": {
+    "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\caty\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj",
         "projectName": "movil_app",
-        "projectPath": "C:\\Users\\user\\Desktop\\caty\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj",
+        "projectPath": "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\caty\\ProyectoGrupoMarpaIt\\movil_app\\obj\\",
+        "outputPath": "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [

@@ -12,7 +12,7 @@
         public string estado { get; set; }
         public string nombre_rol { get; set; } 
         public string nombre_departamento { get; set; }
-        public int anios_trabajados { get; set; }
+        public DateTime fecha_ingreso { get; set; }
 
     }
 }

@@ -4,10 +4,13 @@ using movil_api.Modelo;
 using System.Data;
 using System.Data.SqlClient;
 
+
+
 namespace movil_api.Datos
 {
     public class UsuarioD
     {
+
 
 
         ConexionBd cn = new ConexionBd();
@@ -34,7 +37,7 @@ namespace movil_api.Datos
                             usuariomodel.apellidos = (string)item["apellidos"];
                             usuariomodel.codigoempleado = (string)item["codigoempleado"];
                             usuariomodel.correo = (string)item["correo"];
-                            usuariomodel.anios_trabajados = (int)item["anios_trabajados"];
+                            usuariomodel.fecha_ingreso = (DateTime)item["fecha_ingreso"];
                             usuariomodel.estado = (string)item["estado"];
                             usuariomodel.nombre_rol = (string)item["nombre_rol"];
                             usuariomodel.nombre_departamento = (string)item["nombre_departamento"];
@@ -75,7 +78,7 @@ namespace movil_api.Datos
                                 apellidos = (string)reader["apellidos"],
                                 correo = (string)reader["correo"],
                                 estado = (string)reader["estado"],
-                                anios_trabajados = (int)reader["anios_trabajados"],
+                                fecha_ingreso = (DateTime)reader["fecha_ingreso"],
                                 nombre_rol = (string)reader["rol"],
                                 nombre_departamento = (string)reader["departamento"]
                             };
@@ -100,7 +103,7 @@ namespace movil_api.Datos
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("SELECT U.usuario_id, U.nombre, U.apellidos, U.correo, U.estado, U.anios_trabajados, R.nombre_rol AS rol, D.nombre_departamento AS departamento FROM Usuarios U INNER JOIN Roles R ON U.rol_id = R.rol_id INNER JOIN Departamentos D ON U.departamento_id = D.departamento_id WHERE U.usuario_id = @id", sql))
+                using (var cmd = new SqlCommand("SELECT U.usuario_id, U.nombre, U.apellidos, U.correo, U.estado, U.fecha_ingreso, R.nombre_rol AS rol, D.nombre_departamento AS departamento FROM Usuarios U INNER JOIN Roles R ON U.rol_id = R.rol_id INNER JOIN Departamentos D ON U.departamento_id = D.departamento_id WHERE U.usuario_id = @id", sql))
                 {
                     await sql.OpenAsync();
                     cmd.Parameters.AddWithValue("@id", id);
@@ -116,7 +119,7 @@ namespace movil_api.Datos
                                 apellidos = (string)reader["apellidos"],
                                 correo = (string)reader["correo"],
                                 estado = (string)reader["estado"],
-                                anios_trabajados = (int)reader["anios_trabajados"],
+                                fecha_ingreso = (DateTime)reader["fecha_ingreso"],
                                 nombre_rol = (string)reader["rol"],
                                 nombre_departamento = (string)reader["departamento"]
                             };
@@ -144,7 +147,7 @@ namespace movil_api.Datos
                 int departamentoId = await ObtenerDepartamentoIdPorNombre(usuario.nombre_departamento);
 
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("INSERT INTO Usuarios (correo, nombre, apellidos, contrasena, codigoempleado, estado, rol_id, departamento_id) VALUES (@correo, @nombre, @apellidos, @contrasena, @codigoempleado, @estado, @rol_id, @departamento_id)", sql))
+                using (var cmd = new SqlCommand("INSERT INTO Usuarios (correo, nombre, apellidos, contrasena, codigoempleado, estado, rol_id, departamento_id) VALUES (@correo, @nombre, @apellidos, @contrasena, @codigoempleado, @estado, @rol_id, @departamento_id, @fecha_ingreso)", sql))
                 {
                     await sql.OpenAsync();
 
@@ -156,6 +159,7 @@ namespace movil_api.Datos
                     cmd.Parameters.AddWithValue("@estado", usuario.estado);
                     cmd.Parameters.AddWithValue("@rol_id", rolId);
                     cmd.Parameters.AddWithValue("@departamento_id", departamentoId);
+                    cmd.Parameters.AddWithValue("@fecha_ingreso", usuario.fecha_ingreso);
 
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     return rowsAffected > 0;
@@ -178,7 +182,7 @@ namespace movil_api.Datos
                 int departamentoId = await ObtenerDepartamentoIdPorNombre(usuario.nombre_departamento);
 
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("UPDATE Usuarios SET correo = @correo, nombre = @nombre, apellidos = @apellidos, contrasena = @contrasena, codigoempleado = @codigoempleado, estado = @estado, rol_id = @rol_id, departamento_id = @departamento_id, anios_trabajados = @anios_trabajados WHERE usuario_id = @id", sql))
+                using (var cmd = new SqlCommand("UPDATE Usuarios SET correo = @correo, nombre = @nombre, apellidos = @apellidos, contrasena = @contrasena, codigoempleado = @codigoempleado, estado = @estado, rol_id = @rol_id, departamento_id = @departamento_id, fecha_ingreso = @fecha_ingreso WHERE usuario_id = @id", sql))
                 {
                     await sql.OpenAsync();
                     cmd.Parameters.AddWithValue("@id", usuario.usuario_id);
@@ -190,7 +194,7 @@ namespace movil_api.Datos
                     cmd.Parameters.AddWithValue("@estado", usuario.estado);
                     cmd.Parameters.AddWithValue("@rol_id", rolId);
                     cmd.Parameters.AddWithValue("@departamento_id", departamentoId);
-                    cmd.Parameters.AddWithValue("@anios_trabajados", usuario.anios_trabajados);
+                    cmd.Parameters.AddWithValue("@fecha_ingreso", usuario.fecha_ingreso);
 
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     return rowsAffected > 0;
@@ -259,8 +263,6 @@ namespace movil_api.Datos
 
             return departamentoId;
         }
-
-
 
 
 

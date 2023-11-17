@@ -26,6 +26,7 @@ CREATE TABLE Usuarios (
     contrasena NVARCHAR(100),
 	codigoempleado NVARCHAR(5),
     estado NVARCHAR(10) DEFAULT 'activo', 
+	fecha_ingreso DATE,
     rol_id INT,
 	departamento_id INT,
     FOREIGN KEY (rol_id) REFERENCES Roles(rol_id),
@@ -46,19 +47,22 @@ CREATE TABLE Solicitudes_Permiso (
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
 );
 
+-- Ejemplo con Detalles_Solicitud_Dias
 CREATE TABLE Detalles_Solicitud_Dias (
     solicitud_id INT PRIMARY KEY,
     fecha_inicio DATE,
     fecha_fin DATE,
-    FOREIGN KEY (solicitud_id) REFERENCES Solicitudes_Permiso(solicitud_id)
+    FOREIGN KEY (solicitud_id) REFERENCES Solicitudes_Permiso(solicitud_id) ON DELETE CASCADE
 );
 
+-- Ejemplo con Detalles_Solicitud_Horas
 CREATE TABLE Detalles_Solicitud_Horas (
     solicitud_id INT PRIMARY KEY,
     hora_inicio TIME,
     hora_fin TIME,
-    FOREIGN KEY (solicitud_id) REFERENCES Solicitudes_Permiso(solicitud_id)
+    FOREIGN KEY (solicitud_id) REFERENCES Solicitudes_Permiso(solicitud_id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE Calendarizacion (
     usuario_id INT PRIMARY KEY,
@@ -68,8 +72,40 @@ CREATE TABLE Calendarizacion (
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
 );
 
-ALTER TABLE Usuarios
-ADD anios_trabajados INT DEFAULT 0;
+
+
+-- insert
+
+-- Inserts en la tabla Roles
+INSERT INTO Roles (nombre_rol)
+VALUES ('Administrador'),
+       ('Supervisor'),
+       ('Empleado');
+
+-- Inserts en la tabla Departamentos
+INSERT INTO Departamentos (nombre_departamento)
+VALUES ('Recursos Humanos'),
+       ('Ventas'),
+       ('Tecnología');
+
+-- Inserts en la tabla Usuarios
+INSERT INTO Usuarios (correo, nombre, apellidos, contrasena, codigoempleado, rol_id, departamento_id)
+VALUES ('usuario1@empresa.com', 'Juan', 'López', 'contraseña123', 'EMP01', '2023-01-15', 1, 1),
+       ('usuario2@empresa.com', 'María', 'García', 'clave567', 'EMP02', '2022-11-28', 2, 2),
+       ('usuario3@empresa.com', 'Luis', 'Martínez', 'acceso2023', 'EMP03', '2023-03-10', 3, 3);
+
+-- Inserts en la tabla Solicitudes_Permiso
+INSERT INTO Solicitudes_Permiso (usuario_id, motivo, cuenta_vacaciones, cuenta_dias_laborales, goce_sueldo, tipo_permiso, estado_aprobacion, fecha_solicitud)
+VALUES (1, 'Vacaciones anuales', 1, 0, 1, 'Dias', 'pendiente', GETDATE()),
+       (2, 'Permiso para evento', 0, 1, 1, 'Dias', 'pendiente', GETDATE()),
+       (3, 'Descanso médico', 1, 1, 0, 'Dias', 'pendiente', GETDATE());
+
+-- Inserts en la tabla Detalles_Solicitud_Dias
+INSERT INTO Detalles_Solicitud_Dias (solicitud_id, fecha_inicio, fecha_fin)
+VALUES (1, '2023-11-20', '2023-11-27'),
+       (2, '2023-12-05', '2023-12-06'),
+       (3, '2023-11-10', '2023-11-11');
+go
 
 
 -- procedimientos almacenados
@@ -88,7 +124,7 @@ BEGIN
         U.nombre,
         U.apellidos,
         U.estado,
-        U.anios_trabajados,
+        U.fecha_ingreso,
         R.nombre_rol AS 'rol',
         D.nombre_departamento AS 'departamento'
     FROM
@@ -100,9 +136,7 @@ BEGIN
     WHERE
         U.correo = @correo AND U.contrasena = @contrasena AND U.estado = 'activo';
 END
-
-
-
+go
 
 CREATE PROCEDURE ListarUsuarios
 AS
@@ -115,7 +149,7 @@ BEGIN
         U.nombre,
         U.apellidos,
         U.estado,
-        U.anios_trabajados,
+        U.fecha_ingreso,
 		U.codigoempleado,
         R.nombre_rol, -- Agregar el nombre del rol
         D.nombre_departamento -- Agregar el nombre del departamento
