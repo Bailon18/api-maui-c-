@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rpBRPphphs+GTG53TbYXyk+rVBet51TpTAmOUjt/l6yKGMIpB4jlm/1FQtUrZLxLPjwoaucFc1unXUIg6rrrGg==",
+  "dgSpecHash": "lgjYx70AaPny0Y6kBSF0TfveUGCl3X+FtIpZTtI5UuPvdR4QOUbIEDllITIENoRTw/JZMhqPHdw7zWWQShvzTA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_api\\movil_api.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_api\\movil_api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

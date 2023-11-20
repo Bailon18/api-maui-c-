@@ -64,6 +64,15 @@
 	  <MauiXaml Update="Page\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Page\ModalAgregarUsuarioPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\ModalSolicitudPermisoDiasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\ModalSolicitudPermisoHorasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Page\PermisosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

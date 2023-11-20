@@ -1,4 +1,5 @@
-﻿using movil_app.Page;
+﻿using movil_app.Models;
+using movil_app.Page;
 
 
 namespace movil_app
@@ -7,6 +8,7 @@ namespace movil_app
     {
 
         bool IsLoggedIn = false;
+        UsuarioModel UsuarioModel { get; set; }
 
         public AppShell()
         {
@@ -44,6 +46,17 @@ namespace movil_app
             }
 
         }
+
+        public void setUsuarioLogeado(UsuarioModel usuariologeado) {
+
+            UsuarioModel = usuariologeado;
+        }
+
+        public UsuarioModel getUsuarioLogeado()
+        {
+            return UsuarioModel;
+        }
+
 
     }
 }

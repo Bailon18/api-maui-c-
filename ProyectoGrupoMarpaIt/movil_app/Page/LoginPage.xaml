@@ -15,8 +15,8 @@
 
         <Image Source="grupomarpait.png" HeightRequest="130" WidthRequest="130" Margin="0,10,0,10" />
 
-        <Entry Placeholder="Correo" Keyboard="Email" Margin="0,10,0,10" WidthRequest="300" />
-        <Entry Placeholder="Contraseña" IsPassword="True" Margin="0,10,0,10" WidthRequest="300" />
+        <Entry x:Name="EntryCorreo" Placeholder="Correo" Keyboard="Email" Margin="0,10,0,10" WidthRequest="300" />
+        <Entry x:Name="EntryContrasena" Placeholder="Contraseña" IsPassword="True" Margin="0,10,0,10" WidthRequest="300" />
 
         <Button Text="Iniciar Sesión" Clicked="OnLoginButtonClicked" HorizontalOptions="FillAndExpand" Margin="0,20,0,0" WidthRequest="300" />
     </FlexLayout>

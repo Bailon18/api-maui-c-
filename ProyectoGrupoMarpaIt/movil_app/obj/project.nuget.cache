@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1UW6dE4RJzF4/0KGJCrT5f6PqgwcP8UcmCRs4m6P4ATHx6O5RAccOY7ZYAw8heCfymNVZNJb65bqF35OgsGpBg==",
+  "dgSpecHash": "LaS16IvPTi00cSBaWR4z1EreTHAhRewRIxprdIfAvtEP5b+kjfmKEpWQBXB09wuMyV0yTXI0c1SON6Sv3fNCOw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Documents\\Proyecto-movil-MIUI-Mexico\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\api-maui-c-\\ProyectoGrupoMarpaIt\\movil_app\\movil_app.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",

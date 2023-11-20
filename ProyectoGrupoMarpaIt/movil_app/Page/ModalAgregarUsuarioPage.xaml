@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="movil_app.Page.ModalAgregarUsuarioPage"
+             Title="Crear Usuarios">
+
+    <StackLayout Padding="20">
+        <Frame CornerRadius="10" BorderColor="#CCCCCC" HasShadow="True">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+                <Label
+                x:Name="tituloagregareditar"
+                Text="Nuevo Usuario"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="27"
+                FontFamily="Chunk Five Print"
+                HorizontalOptions="Center" Margin="0,0,0,15"/>
+                <Entry Placeholder="Correo" WidthRequest="300" Margin="0,0,0,15" x:Name="CorreoEntry" BindingContext="{Binding correo}"/>
+                <Entry Placeholder="Nombre" WidthRequest="300" Margin="0,0,0,15" x:Name="NombreEntry" BindingContext="{Binding nombre}"/>
+                <Entry Placeholder="Apellidos" WidthRequest="300" Margin="0,0,0,15" x:Name="ApellidosEntry" BindingContext="{Binding apellidos}"/>
+                <Entry Placeholder="Contraseña" IsPassword="True" WidthRequest="300" Margin="0,0,0,15" x:Name="ContraseñaEntry" BindingContext="{Binding contrasena}"/>
+                <Entry Placeholder="Código Empleado" WidthRequest="300" Margin="0,0,0,15" x:Name="CodigoEmpleadoEntry" BindingContext="{Binding codigoempleado}"/>
+                <DatePicker Date="{Binding fecha_ingreso}" WidthRequest="300" Margin="0,0,0,15" x:Name="FechaIngresoDatePicker" BindingContext="{Binding fecha_ingreso}"/>
+                <Picker  Title="Estado" SelectedItem="{Binding estado}" WidthRequest="300" Margin="0,0,0,15" x:Name="EstadoPicker" BindingContext="{Binding estado}" />
+                <Picker  Title="Rol" SelectedItem="{Binding nombre_rol}" WidthRequest="300" Margin="0,0,0,15" x:Name="RolPicker" BindingContext="{Binding nombre_rol}" />
+                <Picker  Title="Departamento" SelectedItem="{Binding nombre_departamento}" WidthRequest="300" Margin="0,0,0,15" x:Name="DepartamentoPicker" BindingContext="{Binding nombre_departamento}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
+                    <Button x:Name="BotonAccion" Text="Agregar" BackgroundColor="#CCCCCC" TextColor="White" Margin="10,10" Clicked="AgregarButton_Clicked" />
+                    <Button Text="Cancelar" BackgroundColor="#007bff" TextColor="White" Margin="10,10" Clicked="CancelarButton_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

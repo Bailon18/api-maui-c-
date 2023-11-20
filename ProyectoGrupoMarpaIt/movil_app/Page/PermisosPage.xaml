@@ -2,11 +2,69 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="movil_app.Page.PermisosPage"
-             Title="PermisosPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Permisos">
+    
+    <StackLayout Padding="10">
+
+        <Label
+                x:Name="tituloagregareditar"
+                Text="Mis Permisos"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="27"
+                FontFamily="Chunk Five Print"
+                HorizontalOptions="Center" Margin="0,0,0,15"/>
+
+        <StackLayout Margin="0,0,0,30" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+            <Button Text="Por Día" FontSize="Micro" Margin="0,0,10,0" Clicked="AgregarSolicitudDia_Clicked" />
+            <Button Text="Por Hora" FontSize="Micro" />
+        </StackLayout>
+
+
+        <Grid BackgroundColor="#f0f0f0" Padding="5" ColumnSpacing="1" RowSpacing="11">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.4*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.6*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Id" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Fecha Solicitud" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Tipo solicitud" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Estado" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Acciones" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+        </Grid>
+
+        <CollectionView x:Name="SolicitudCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="5" BackgroundColor="#f0f0f0" CornerRadius="5" HeightRequest="40">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.4*" />
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1.6*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="{Binding solicitud_id}" Grid.Column="0" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding fecha_solicitud}" Grid.Column="1" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding tipo_permiso}" Grid.Column="2"  HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding estado_aprobacion}" Grid.Column="3"  HorizontalTextAlignment="Start"/>
+
+                            <StackLayout Grid.Column="4" Orientation="Horizontal">
+                                <ImageButton Source="editicon.png"  Clicked="EditarButton_Clicked" Margin="3,5,3,4" />
+                                <ImageButton Source="deleteicon.png"  Clicked="EliminarButton_Clicked" Margin="-30,5,3,4" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

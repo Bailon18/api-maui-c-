@@ -103,7 +103,7 @@ namespace movil_api.Datos
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("SELECT U.usuario_id, U.nombre, U.apellidos, U.correo, U.estado, U.fecha_ingreso, R.nombre_rol AS rol, D.nombre_departamento AS departamento FROM Usuarios U INNER JOIN Roles R ON U.rol_id = R.rol_id INNER JOIN Departamentos D ON U.departamento_id = D.departamento_id WHERE U.usuario_id = @id", sql))
+                using (var cmd = new SqlCommand("SELECT U.usuario_id, U.nombre, U.apellidos,  U.codigoempleado, U.contrasena, U.correo, U.estado, U.fecha_ingreso, R.nombre_rol AS rol, D.nombre_departamento AS departamento FROM Usuarios U INNER JOIN Roles R ON U.rol_id = R.rol_id INNER JOIN Departamentos D ON U.departamento_id = D.departamento_id WHERE U.usuario_id = @id", sql))
                 {
                     await sql.OpenAsync();
                     cmd.Parameters.AddWithValue("@id", id);
@@ -119,6 +119,8 @@ namespace movil_api.Datos
                                 apellidos = (string)reader["apellidos"],
                                 correo = (string)reader["correo"],
                                 estado = (string)reader["estado"],
+                                codigoempleado = (string)reader["codigoempleado"],
+                                contrasena = (string)reader["contrasena"],
                                 fecha_ingreso = (DateTime)reader["fecha_ingreso"],
                                 nombre_rol = (string)reader["rol"],
                                 nombre_departamento = (string)reader["departamento"]
@@ -147,7 +149,7 @@ namespace movil_api.Datos
                 int departamentoId = await ObtenerDepartamentoIdPorNombre(usuario.nombre_departamento);
 
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("INSERT INTO Usuarios (correo, nombre, apellidos, contrasena, codigoempleado, estado, rol_id, departamento_id) VALUES (@correo, @nombre, @apellidos, @contrasena, @codigoempleado, @estado, @rol_id, @departamento_id, @fecha_ingreso)", sql))
+                using (var cmd = new SqlCommand("INSERT INTO Usuarios (correo, nombre, apellidos, contrasena, codigoempleado, estado, rol_id, departamento_id, fecha_ingreso) VALUES (@correo, @nombre, @apellidos, @contrasena, @codigoempleado, @estado, @rol_id, @departamento_id, @fecha_ingreso)", sql))
                 {
                     await sql.OpenAsync();
 

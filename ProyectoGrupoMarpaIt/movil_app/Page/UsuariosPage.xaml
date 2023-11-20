@@ -1,12 +1,63 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="movil_app.Page.UsuariosPage"
-             Title="UsuariosPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Usuarios">
+
+    <StackLayout Padding="10">
+
+        <Label
+                x:Name="tituloagregareditar"
+                Text="Listado de usuarios"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="27"
+                FontFamily="Chunk Five Print"
+                HorizontalOptions="Center" Margin="0,0,0,15"/>
+
+        <StackLayout Margin="0,0,0,30" HorizontalOptions="End">
+            <Button Text="Agregar Usuario"  Clicked="AgregarUsuario_Clicked"/>
+        </StackLayout>
+
+        <Grid BackgroundColor="#f0f0f0" Padding="5" ColumnSpacing="1" RowSpacing="11">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Id" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Nombres" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Departamento" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+            <Label Text="Acciones" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+        </Grid>
+
+        <CollectionView x:Name="UsuariosCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="5" BackgroundColor="#f0f0f0" CornerRadius="5" HeightRequest="40">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="{Binding usuario_id}" Grid.Column="0" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding NombreCompleto}" Grid.Column="1" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding nombre_departamento}" Grid.Column="2"  HorizontalTextAlignment="Start"/>
+
+                            <StackLayout Grid.Column="3" Orientation="Horizontal">
+                                <ImageButton Source="editicon.png"  Clicked="EditarButton_Clicked" Margin="0,5" />
+                                <ImageButton Source="deleteicon.png"  Clicked="EliminarButton_Clicked" Margin="0,5" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>
