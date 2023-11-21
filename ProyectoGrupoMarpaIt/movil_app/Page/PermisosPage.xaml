@@ -16,7 +16,7 @@
 
         <StackLayout Margin="0,0,0,30" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
             <Button Text="Por Día" FontSize="Micro" Margin="0,0,10,0" Clicked="AgregarSolicitudDia_Clicked" />
-            <Button Text="Por Hora" FontSize="Micro" />
+            <Button Text="Por Hora" FontSize="Micro"  Clicked="AgregarSolicitudHora_Clicked"/>
         </StackLayout>
 
 
@@ -59,7 +59,7 @@
 
                             <StackLayout Grid.Column="4" Orientation="Horizontal">
                                 <ImageButton Source="editicon.png"  Clicked="EditarButton_Clicked" Margin="3,5,3,4" />
-                                <ImageButton Source="deleteicon.png"  Clicked="EliminarButton_Clicked" Margin="-30,5,3,4" />
+                                <ImageButton Source="deleteicon.png"  Clicked="EliminarButton_Clicked" Margin="-20,5,3,4" />
                             </StackLayout>
                         </Grid>
                     </Frame>

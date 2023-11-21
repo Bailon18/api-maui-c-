@@ -119,5 +119,78 @@ namespace movil_api.Controllers
                 return StatusCode(500, "Error interno del servidor");
             }
         }
+
+
+        [HttpGet("detallesDias/{solicitudId}")]
+        public async Task<ActionResult<DetallesSolicitudDiasModel>> ObtenerDetallesPorSolicitudId(int solicitudId)
+        {
+            try
+            {
+                var detallesSolicitud = await _solicitudesPermisoD.ObtenerDetallesPorSolicitudId(solicitudId);
+
+                if (detallesSolicitud != null)
+                {
+                    return Ok(detallesSolicitud);
+                }
+                else
+                {
+                    return NotFound("No se encontraron detalles para la solicitud especificada.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener detalles por solicitud_id: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
+        [HttpPut("actualizar-solicitud-completa")]
+        public async Task<ActionResult<bool>> ActualizarSolicitudCompleta([FromBody] SolicitudCompletaModel solicitudCompletaModel)
+        {
+            try
+            {
+
+                var exito = await _solicitudesPermisoD.ActualizarSolicitudCompleta(solicitudCompletaModel);
+
+                if (exito)
+                {
+                    return Ok(true);
+                }
+                else
+                {
+                    return StatusCode(500, "Error al actualizar la solicitud completa");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar la solicitud completa: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+        [HttpGet("detallesHoras/{solicitudId}")] 
+        public async Task<ActionResult<DetallesSolicitudHorasModel>> ObtenerDetallesHorasPorSolicitudId(int solicitudId)
+        {
+            try
+            {
+                var detallesSolicitudHoras = await _solicitudesPermisoD.ObtenerDetallesHorasPorSolicitudId(solicitudId);
+
+                if (detallesSolicitudHoras != null)
+                {
+                    return Ok(detallesSolicitudHoras);
+                }
+                else
+                {
+                    return NotFound("No se encontraron detalles por horas para la solicitud especificada.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener detalles por solicitud_id: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
     }
 }

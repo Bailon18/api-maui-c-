@@ -7,18 +7,23 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
 {
     UsuarioModel usuariologeado { get; set; }
     private readonly PermisosServices _permisosServices;
-    private int _solicitudId; // Identificador de la solicitud, 0 para agregar
+    private int _solicitudId; 
 
-    // Constructor que recibe solicitud_id para editar o agregar
     public ModalSolicitudPermisoDiasPage(int solicitud_id = 0)
     {
         InitializeComponent();
+
+
+
+
+
         _permisosServices = new PermisosServices();
         _solicitudId = solicitud_id;
 
         if (Application.Current.MainPage is AppShell appShell)
         {
             usuariologeado = appShell.getUsuarioLogeado();
+
             NombreEntry.Text = usuariologeado.nombre + " " + usuariologeado.apellidos;
             NumeroEmpleadoEntry.Text = usuariologeado.codigoempleado;
             DepartamentoEntry.Text = usuariologeado.nombre_departamento;
@@ -26,8 +31,8 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
 
         if (_solicitudId != 0)
         {
-
-
+            titulo.Text = "Actualizar solicitud por dias";
+            BotonAccion.Text = "Actualizar";
             LlenarDetallesSolicitud();
         }
     }
@@ -41,15 +46,18 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
         {
             SolicitudesPermisoModel solicitud = solicitudes.FirstOrDefault(s => s.solicitud_id == _solicitudId);
 
-            if (solicitud != null)
+            DetallesSolicitudDiasModel detalledias = await _permisosServices.ObtenerDetallesPorDiasSolicitudId(_solicitudId);
+
+            if (solicitud != null && detalledias != null)
             {
                 MotivoEditor.Text = solicitud.motivo;
-                // Rellenar el valor del check
-                CuentaDiasSwitch.IsToggled = solicitud.cuenta_vacaciones; // Asumiendo que cuenta_vacaciones es la propiedad del switch
+                CuentaDiasSwitch.IsToggled = solicitud.cuenta_vacaciones;
+                FechaInicio.Date = detalledias.FechaInicio;
+                FechaFin.Date = detalledias.FechaFin;
             }
             else
             {
-                Console.WriteLine("No se encontró la solicitud correspondiente.");
+                Console.WriteLine("No se encontró la solicitud correspondiente o los detalles por días.");
             }
         }
         else
@@ -108,9 +116,23 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
         else
         {
             // Si _solicitudId tiene valor, es una solicitud para actualizar
-            // Lógica para actualizar la solicitud con _solicitudId
+            solicitudCompleta.Solicitud.solicitud_id = _solicitudId;
+
+            bool solicitudActualizada = await _permisosServices.ActualizarSolicitudCompleta(solicitudCompleta);
+
+            if (solicitudActualizada)
+            {
+                await DisplayAlert("Éxito", "La solicitud ha sido actualizada correctamente.", "OK");
+                await Navigation.PopModalAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo actualizar la solicitud. Inténtalo de nuevo.", "OK");
+            }
         }
     }
+
+
 
     private async void CancelarButton_Clicked(object sender, EventArgs e)
     {

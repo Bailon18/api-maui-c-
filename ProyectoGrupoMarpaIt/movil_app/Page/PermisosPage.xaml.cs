@@ -57,13 +57,29 @@ public partial class PermisosPage : ContentPage
         await Navigation.PushModalAsync(modalPage);
     }
 
+    private async void AgregarSolicitudHora_Clicked(object sender, EventArgs e)
+    {
+        var modalPage = new ModalSolicitudPermisoHorasPage();
+        await Navigation.PushModalAsync(modalPage);
+    }
+
     private async void EditarButton_Clicked(object sender, EventArgs e)
     {
-        if (sender is ImageButton button && button.BindingContext is SolicitudesPermisoModel usuario)
+        if (sender is ImageButton button && button.BindingContext is SolicitudesPermisoModel solicitud)
         {
-            int usuarioId = usuario.solicitud_id;
-            var modalPage = new ModalSolicitudPermisoDiasPage(usuarioId);
-            await Navigation.PushModalAsync(modalPage);
+            int solicitudId = solicitud.solicitud_id;
+
+            if (solicitud.tipo_permiso == "Horas")
+            {
+                var modalPageHoras = new ModalSolicitudPermisoHorasPage(solicitudId);
+                await Navigation.PushModalAsync(modalPageHoras);
+            }
+            else
+            {
+                var modalPageDias = new ModalSolicitudPermisoDiasPage(solicitudId);
+                await Navigation.PushModalAsync(modalPageDias);
+            }
+
         }
     }
 

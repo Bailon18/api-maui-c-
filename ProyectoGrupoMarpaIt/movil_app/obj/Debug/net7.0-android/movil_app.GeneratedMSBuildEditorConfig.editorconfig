@@ -68,6 +68,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.PermisosPag
 build_metadata.AdditionalFiles.TargetPath = Page\PermisosPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Page\PermisosPage.xaml
 
+[C:/Users/user/Desktop/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Page/SolicitudesPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.SolicitudesPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Page\SolicitudesPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Page\SolicitudesPage.xaml
+
 [C:/Users/user/Desktop/api-maui-c-/ProyectoGrupoMarpaIt/movil_app/Page/UsuariosPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = movil_app.Page.UsuariosPage.xaml

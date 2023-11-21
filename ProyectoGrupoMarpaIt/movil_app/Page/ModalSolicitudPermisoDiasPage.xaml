@@ -5,7 +5,7 @@
     <StackLayout Padding="20">
         <Frame CornerRadius="10" BorderColor="#CCCCCC" HasShadow="True">
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
-                <Label Text="Solicitud Permiso por Dias" FontSize="27" FontFamily="Chunk Five Print"
+                <Label Text="Agregar solictud por Dias" FontSize="27" FontFamily="Chunk Five Print" x:Name="titulo"
                        HorizontalOptions="Center" Margin="0,0,0,15"/>
 
                 <!-- Campos autollenados -->

@@ -17,7 +17,7 @@ namespace movil_app.Page
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
 
-            string correo = "admin@gmail.com";
+            string correo = "admin2@gmail.com";
             string contrasena = "admin";
 
             var credenciales = new CredencialesModel
@@ -34,8 +34,8 @@ namespace movil_app.Page
 
                 if (Application.Current.MainPage is AppShell appShell)
                 {
-                    appShell.menuuu(true);
                     appShell.setUsuarioLogeado(usuarioValidado);
+                    appShell.menuuu(true);
                     await Shell.Current.GoToAsync("//Inicio");
                 }
             }

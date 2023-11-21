@@ -78,6 +78,7 @@ namespace movil_api.Datos
                                 apellidos = (string)reader["apellidos"],
                                 correo = (string)reader["correo"],
                                 estado = (string)reader["estado"],
+                                codigoempleado = (string)reader["codigoempleado"],
                                 fecha_ingreso = (DateTime)reader["fecha_ingreso"],
                                 nombre_rol = (string)reader["rol"],
                                 nombre_departamento = (string)reader["departamento"]
