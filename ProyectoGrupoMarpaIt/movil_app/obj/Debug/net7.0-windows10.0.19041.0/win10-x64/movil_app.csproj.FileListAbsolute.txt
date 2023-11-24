@@ -658,3 +658,4 @@ C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\deleteicon.scale-100.png
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\editicon.scale-100.png
+C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\detalleicon.scale-100.png

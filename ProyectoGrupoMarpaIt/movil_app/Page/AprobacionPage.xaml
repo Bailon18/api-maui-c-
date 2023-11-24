@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="movil_app.Page.AprobacionPage"
+             Title="AprobacionPage">
+    <StackLayout Padding="20">
+        <Frame CornerRadius="10" BorderColor="#CCCCCC" HasShadow="True">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+                <Label Text="Aprobacion" FontSize="27" FontFamily="Chunk Five Print" x:Name="titulo"
+                       HorizontalOptions="Center" Margin="0,0,0,15"/>
+
+                <!-- Campos autollenados -->
+                <Entry Placeholder="Nombre" WidthRequest="300" Margin="0,0,0,15" x:Name="NombreEntry"/>
+                <Entry Placeholder="Departamento" WidthRequest="300" Margin="0,0,0,15" x:Name="DepartamentoEntry"/>
+
+                <!-- Switch para cuentas de días de vacaciones -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,0,15">
+                    <Label Text="¿Cuenta días de vacaciones?" VerticalOptions="Center" Margin="0,0,10,10"/>
+                    <Switch x:Name="CuentaDiasSwitch" IsToggled="false" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Switch para goce de sueldo -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,0,15">
+                    <Label Text="¿Goce de sueldo?" VerticalOptions="Center" Margin="0,0,10,10"/>
+                    <Switch x:Name="GoceSueldoSwitch" IsToggled="false" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Selector de fechas en una misma fila -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Start" VerticalOptions="Center">
+                        <Label Text="Fecha de Inicio" FontSize="14" Margin="0,0,0,5"/>
+                        <DatePicker WidthRequest="150" x:Name="FechaInicio" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Start" VerticalOptions="Center">
+                        <Label Text="Fecha de Fin" FontSize="14" Margin="10,0,0,5"/>
+                        <DatePicker WidthRequest="150" x:Name="FechaFin" />
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15">
+                    <Label Text="Días de permiso:" FontSize="14" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    <Entry Placeholder="Días de permiso" Keyboard="Numeric" x:Name="DiasPermisoEntry" />
+                </StackLayout>
+
+
+                <Label Text="Motivo" FontSize="14" Margin="0,0,0,5"/>
+                <Editor Placeholder="Escribe el motivo aquí" HeightRequest="100" Margin="0,0,0,15" x:Name="MotivoEditor"/>
+                
+                
+                
+                <!-- crea 3 botones  uno para  Aprobar(color verde) Rechazar(rojo) que los dos apuntes a un mismo evento y luego detectemos cual fue seleccionado y para poder cambiar el estado de solicitud  -->
+
+                <!-- Botones -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
+                    <Button x:Name="BotonAprobar" Text="Aprobar" BackgroundColor="#28a745" TextColor="White" Margin="10" Clicked="AprobarButton_Clicked"/>
+                    <Button x:Name="BotonRechazar" Text="Rechazar" BackgroundColor="#dc3545" TextColor="White" Margin="10" Clicked="AprobarButton_Clicked"/>
+                </StackLayout>
+                
+                <!-- Botones -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
+                    <Button Text="Cancelar" BackgroundColor="#007bff" TextColor="White" Margin="10" Clicked="CancelarButton_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

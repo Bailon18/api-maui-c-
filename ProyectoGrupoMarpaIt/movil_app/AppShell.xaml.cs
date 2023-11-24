@@ -30,6 +30,14 @@ namespace movil_app
                     Route = "Inicio"
                 });
 
+                Items.Add(new ShellContent
+                {
+                    Title = "Perfil",
+                    Icon = "https://cdn.icon-icons.com/icons2/1520/PNG/512/homeflat_106039.png",
+                    ContentTemplate = new DataTemplate(typeof(PerfilPage)),
+                    Route = "Perfil"
+                });
+
 
                 if (UsuarioModel.nombre_rol == "ADMINISTRADOR")
                 {

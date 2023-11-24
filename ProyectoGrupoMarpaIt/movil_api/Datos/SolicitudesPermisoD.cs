@@ -184,13 +184,14 @@ namespace movil_api.Datos
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("INSERT INTO Detalles_Solicitud_Dias (solicitud_id, fecha_inicio, fecha_fin) VALUES (@solicitud_id, @fecha_inicio, @fecha_fin)", sql))
+                using (var cmd = new SqlCommand("INSERT INTO Detalles_Solicitud_Dias (solicitud_id, fecha_inicio, fecha_fin, dias_permiso) VALUES (@solicitud_id, @fecha_inicio, @fecha_fin, @dias_permiso)", sql))
                 {
                     await sql.OpenAsync();
 
                     cmd.Parameters.AddWithValue("@solicitud_id", detallesDias.SolicitudId);
                     cmd.Parameters.AddWithValue("@fecha_inicio", detallesDias.FechaInicio);
                     cmd.Parameters.AddWithValue("@fecha_fin", detallesDias.FechaFin);
+                    cmd.Parameters.AddWithValue("@dias_permiso", detallesDias.DiasPermisos);
 
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     return rowsAffected > 0;
@@ -208,13 +209,14 @@ namespace movil_api.Datos
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("INSERT INTO Detalles_Solicitud_Horas (solicitud_id, hora_inicio, hora_fin) VALUES (@solicitud_id, @hora_inicio, @hora_fin)", sql))
+                using (var cmd = new SqlCommand("INSERT INTO Detalles_Solicitud_Horas (solicitud_id, hora_inicio, hora_fin, fecha_permiso) VALUES (@solicitud_id, @hora_inicio, @hora_fin, @fecha_permiso)", sql))
                 {
                     await sql.OpenAsync();
 
                     cmd.Parameters.AddWithValue("@solicitud_id", detallesHoras.SolicitudId);
                     cmd.Parameters.AddWithValue("@hora_inicio", detallesHoras.HoraInicio);
                     cmd.Parameters.AddWithValue("@hora_fin", detallesHoras.HoraFin);
+                    cmd.Parameters.AddWithValue("@fecha_permiso", detallesHoras.FechaPermiso);
 
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     return rowsAffected > 0;
@@ -270,7 +272,8 @@ namespace movil_api.Datos
                                 {
                                     SolicitudId = reader.GetInt32(reader.GetOrdinal("solicitud_id")),
                                     FechaInicio = reader.GetDateTime(reader.GetOrdinal("fecha_inicio")),
-                                    FechaFin = reader.GetDateTime(reader.GetOrdinal("fecha_fin"))
+                                    FechaFin = reader.GetDateTime(reader.GetOrdinal("fecha_fin")),
+                                    DiasPermisos = reader.GetInt32(reader.GetOrdinal("dias_permiso"))
                                 };
 
                                 return detallesSolicitud;
@@ -312,7 +315,8 @@ namespace movil_api.Datos
                                 {
                                     SolicitudId = reader.GetInt32(reader.GetOrdinal("solicitud_id")),
                                     HoraInicio = reader.GetTimeSpan(reader.GetOrdinal("hora_inicio")),
-                                    HoraFin = reader.GetTimeSpan(reader.GetOrdinal("hora_fin"))
+                                    HoraFin = reader.GetTimeSpan(reader.GetOrdinal("hora_fin")),
+                                    FechaPermiso = reader.GetDateTime(reader.GetOrdinal("fecha_permiso"))
                                 };
 
                                 return detallesSolicitud;
@@ -401,13 +405,14 @@ namespace movil_api.Datos
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("UPDATE Detalles_Solicitud_Dias SET fecha_inicio = @fecha_inicio, fecha_fin = @fecha_fin WHERE solicitud_id = @solicitud_id", sql))
+                using (var cmd = new SqlCommand("UPDATE Detalles_Solicitud_Dias SET fecha_inicio = @fecha_inicio, fecha_fin = @fecha_fin, dias_permiso = @dias_permiso WHERE solicitud_id = @solicitud_id", sql))
                 {
                     await sql.OpenAsync();
 
                     cmd.Parameters.AddWithValue("@solicitud_id", detallesDias.SolicitudId);
                     cmd.Parameters.AddWithValue("@fecha_inicio", detallesDias.FechaInicio);
                     cmd.Parameters.AddWithValue("@fecha_fin", detallesDias.FechaFin);
+                    cmd.Parameters.AddWithValue("@dias_permiso", detallesDias.DiasPermisos);
 
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     return rowsAffected > 0;
@@ -425,13 +430,14 @@ namespace movil_api.Datos
             try
             {
                 using (var sql = new SqlConnection(cn.cadenaSQL()))
-                using (var cmd = new SqlCommand("UPDATE Detalles_Solicitud_Horas SET hora_inicio = @hora_inicio, hora_fin = @hora_fin WHERE solicitud_id = @solicitud_id", sql))
+                using (var cmd = new SqlCommand("UPDATE Detalles_Solicitud_Horas SET hora_inicio = @hora_inicio, hora_fin = @hora_fin, fecha_permiso = @fecha_permiso WHERE solicitud_id = @solicitud_id", sql))
                 {
                     await sql.OpenAsync();
 
                     cmd.Parameters.AddWithValue("@solicitud_id", detallesHoras.SolicitudId);
                     cmd.Parameters.AddWithValue("@hora_inicio", detallesHoras.HoraInicio);
                     cmd.Parameters.AddWithValue("@hora_fin", detallesHoras.HoraFin);
+                    cmd.Parameters.AddWithValue("@fecha_permiso", detallesHoras.FechaPermiso);
 
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
                     return rowsAffected > 0;
@@ -444,7 +450,173 @@ namespace movil_api.Datos
             }
         }
 
+        public async Task<List<SolicitudesPermisoModel>> BuscarSolicitudesPorNombreOApellido(string nombreOApellido)
+        {
+            var lista = new List<SolicitudesPermisoModel>();
 
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                {
+                    await sql.OpenAsync();
+
+                    using (var cmd = new SqlCommand("SELECT SP.solicitud_id, SP.usuario_id, SP.motivo, SP.estado_aprobacion, SP.cuenta_vacaciones, SP.cuenta_dias_laborales, SP.goce_sueldo, SP.tipo_permiso, SP.fecha_solicitud " +
+                                                    "FROM Solicitudes_Permiso SP " +
+                                                    "INNER JOIN Usuarios U ON SP.usuario_id = U.usuario_id " +
+                                                    "WHERE U.nombre LIKE @nombreOApellido OR U.apellidos LIKE @nombreOApellido", sql))
+                    {
+                        cmd.Parameters.AddWithValue("@nombreOApellido", "%" + nombreOApellido + "%");
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var solicitudPermiso = new SolicitudesPermisoModel
+                                {
+                                    solicitud_id = reader.GetInt32(0),
+                                    usuario_id = reader.GetInt32(1),
+                                    motivo = reader.GetString(2),
+                                    estado_aprobacion = reader.GetString(3),
+                                    cuenta_vacaciones = reader.GetBoolean(4),
+                                    cuenta_dias_laborales = reader.GetBoolean(5),
+                                    goce_sueldo = reader.GetBoolean(6),
+                                    tipo_permiso = reader.GetString(7),
+                                    fecha_solicitud = reader.GetDateTime(8)
+                                };
+
+                                lista.Add(solicitudPermiso);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción según sea necesario
+                Console.WriteLine($"Error al buscar solicitudes por nombre o apellido: {ex.Message}");
+                throw;
+            }
+
+            return lista;
+        }
+
+
+        public async Task<bool> aprobacion(int solicitudId, string nuevoEstado, bool cuenta_vacaciones, bool goce_sueldo)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("UPDATE Solicitudes_Permiso SET estado_aprobacion = @nuevoEstado, cuenta_vacaciones = @cuenta_vacaciones, goce_sueldo = @goce_sueldo  WHERE solicitud_id = @solicitudId", sql))
+                {
+                    await sql.OpenAsync();
+
+                    cmd.Parameters.AddWithValue("@solicitudId", solicitudId);
+                    cmd.Parameters.AddWithValue("@nuevoEstado", nuevoEstado);
+                    cmd.Parameters.AddWithValue("@cuenta_vacaciones", cuenta_vacaciones);
+                    cmd.Parameters.AddWithValue("@goce_sueldo", goce_sueldo);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cambiar el estado de la solicitud: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<CalendarizacionModel> ObtenerInformacionCalendarizacion(int usuarioId)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                {
+                    await sql.OpenAsync();
+
+                    using (var cmd = new SqlCommand("SELECT * FROM Calendarizacion WHERE usuario_id = @usuarioId", sql))
+                    {
+                        cmd.Parameters.AddWithValue("@usuarioId", usuarioId);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                var calendarizacion = new CalendarizacionModel
+                                {
+                                    usuario_id = reader.GetInt32(reader.GetOrdinal("usuario_id")),
+                                    dias_totales = reader.GetInt32(reader.GetOrdinal("dias_totales")),
+                                    dias_tomados = reader.GetInt32(reader.GetOrdinal("dias_tomados")),
+                                    dias_restantes = reader.GetInt32(reader.GetOrdinal("dias_restantes"))
+                                };
+
+                                return calendarizacion;
+                            }
+                            else
+                            {
+                                Console.WriteLine("No se encontró información en la tabla Calendarizacion para este usuario.");
+                                return null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener información de Calendarizacion por usuario_id: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<bool> ActualizarCalendarizacion(int usuarioId, int diasTotales, int diasTomados, int diasRestantes)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("UPDATE Calendarizacion SET dias_totales = @diasTotales, dias_tomados = @diasTomados, dias_restantes = @diasRestantes WHERE usuario_id = @usuarioId", sql))
+                {
+                    await sql.OpenAsync();
+
+                    cmd.Parameters.AddWithValue("@usuarioId", usuarioId);
+                    cmd.Parameters.AddWithValue("@diasTotales", diasTotales);
+                    cmd.Parameters.AddWithValue("@diasTomados", diasTomados);
+                    cmd.Parameters.AddWithValue("@diasRestantes", diasRestantes);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar la tabla Calendarizacion: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<bool> InsertarEnCalendarizacion(int usuarioId, int diasTotales, int diasTomados, int diasRestantes)
+        {
+            try
+            {
+                using (var sql = new SqlConnection(cn.cadenaSQL()))
+                using (var cmd = new SqlCommand("INSERT INTO Calendarizacion (usuario_id, dias_totales, dias_tomados, dias_restantes) VALUES (@usuarioId, @diasTotales, @diasTomados, @diasRestantes)", sql))
+                {
+                    await sql.OpenAsync();
+
+                    cmd.Parameters.AddWithValue("@usuarioId", usuarioId);
+                    cmd.Parameters.AddWithValue("@diasTotales", diasTotales);
+                    cmd.Parameters.AddWithValue("@diasTomados", diasTomados);
+                    cmd.Parameters.AddWithValue("@diasRestantes", diasRestantes);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al insertar en la tabla Calendarizacion: {ex.Message}");
+                throw;
+            }
+        }
 
     }
 

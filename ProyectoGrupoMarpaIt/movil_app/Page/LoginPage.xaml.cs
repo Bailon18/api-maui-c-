@@ -11,14 +11,16 @@ namespace movil_app.Page
         public LoginPage()
         {
             InitializeComponent();
+            EntryCorreo.Text = "admin@gmail.com";
+            EntryContrasena.Text = "admin";
             _validacionServices = new ValidacionServices();
         }
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
 
-            string correo = "admin2@gmail.com";
-            string contrasena = "admin";
+            string correo = EntryCorreo.Text;
+            string contrasena = EntryContrasena.Text;
 
             var credenciales = new CredencialesModel
             {

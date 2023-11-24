@@ -9,6 +9,7 @@ namespace movil_app.Page
     public partial class SolicitudesPage : ContentPage
     {
         private readonly PermisosServices _permisosServices;
+        private readonly UsuarioServices _usuarioServices;
         public List<DepartamentosModel> Departamentos { get; set; } = new List<DepartamentosModel>
         {
             new DepartamentosModel { departamento_id = 1, nombre_departamento = "SISTEMA" },
@@ -22,19 +23,42 @@ namespace movil_app.Page
         {
             InitializeComponent();
             _permisosServices = new PermisosServices();
+            _usuarioServices = new UsuarioServices();
             BindingContext = this;
             SelectedDepartamento = Departamentos.FirstOrDefault();
-            ObtenerIdDepartamento(SelectedDepartamento);
+            ObtenerIdDepartamento();
         }
 
-        public async void ObtenerIdDepartamento(DepartamentosModel departamento)
+
+        protected override void OnAppearing()
         {
-            if (departamento != null)
+            base.OnAppearing();
+
+            ObtenerIdDepartamento();
+        }
+
+
+
+        public async void ObtenerIdDepartamento()
+        {
+            
+            var listadosolicitudes = await _permisosServices.ListarSolicitudesPermiso();
+
+            var usuarios = await _usuarioServices.ListarUsuarios();
+
+            foreach (var solicitud in listadosolicitudes)
             {
-                int idSeleccionado = departamento.departamento_id;
-                var solicitudes = await _permisosServices.ObtenerSolicitudesPorDepartamento(idSeleccionado);
-                SolicitudCollectionView.ItemsSource = solicitudes;
+                var usuario = usuarios.FirstOrDefault(u => u.usuario_id == solicitud.usuario_id);
+                if (usuario != null)
+                {
+                    solicitud.nombre_usuario = $"{usuario.nombre} {usuario.apellidos}";
+                }
             }
+
+            SolicitudCollectionView.ItemsSource = listadosolicitudes;
+
+            Console.WriteLine("ENTROOOOOO");
+
         }
 
         private async void DepartamentoPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -42,19 +66,76 @@ namespace movil_app.Page
             if (sender is Picker picker && picker.SelectedItem is DepartamentosModel departamento)
             {
                 int idSeleccionado = departamento.departamento_id;
+
                 var solicitudes = await _permisosServices.ObtenerSolicitudesPorDepartamento(idSeleccionado);
+                var usuarios = await _usuarioServices.ListarUsuarios();
+
+                foreach (var solicitud in solicitudes)
+                {
+                    var usuario = usuarios.FirstOrDefault(u => u.usuario_id == solicitud.usuario_id);
+                    if (usuario != null)
+                    {
+                        solicitud.nombre_usuario = $"{usuario.nombre} {usuario.apellidos}";
+                    }
+                }
+
                 SolicitudCollectionView.ItemsSource = solicitudes;
             }
         }
 
-        private void EditarButton_Clicked(object sender, EventArgs e)
+
+
+        private async void EntryBusqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Lógica para el botón Editar
+            string searchText = e.NewTextValue;
+
+            try
+            {
+                var solicitudes = await _permisosServices.BuscarSolicitudesPorNombreOApellido(searchText);
+                var usuarios = await _usuarioServices.ListarUsuarios();
+
+                if (solicitudes != null)
+                {
+                    foreach (var solicitud in solicitudes)
+                    {
+                        var usuario = usuarios.FirstOrDefault(u => u.usuario_id == solicitud.usuario_id);
+                        if (usuario != null)
+                        {
+                            solicitud.nombre_usuario = $"{usuario.nombre} {usuario.apellidos}";
+                        }
+                    }
+
+                    SolicitudCollectionView.ItemsSource = solicitudes;
+                }
+                else
+                {
+                    Console.WriteLine("No se encontraron solicitudes para el término de búsqueda proporcionado.");
+                    SolicitudCollectionView.ItemsSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al buscar solicitudes: {ex.Message}");
+            }
         }
 
-        private void EliminarButton_Clicked(object sender, EventArgs e)
+
+        private async void RevisionButton_Clicked(object sender, EventArgs e)
         {
-            // Lógica para el botón Eliminar
+
+
+            if (sender is ImageButton button && button.BindingContext is SolicitudesPermisoModel solicitud)
+            {
+                int solicitudId = solicitud.solicitud_id;
+
+
+                var modalPage = new AprobacionPage(solicitudId);
+                await Navigation.PushModalAsync(modalPage);
+
+            }
+
         }
+
+     
     }
 }

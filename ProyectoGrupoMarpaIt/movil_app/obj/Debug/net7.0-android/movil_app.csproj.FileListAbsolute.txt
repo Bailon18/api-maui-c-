@@ -1956,3 +1956,4 @@ C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-android\stamp\_ResolveLibraryProjectImports.stamp
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-android\resizetizer\r\drawable\deleteicon.png
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-android\resizetizer\r\drawable\editicon.png
+C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-android\resizetizer\r\drawable\detalleicon.png

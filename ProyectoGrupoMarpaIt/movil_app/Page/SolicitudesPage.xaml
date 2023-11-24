@@ -13,15 +13,35 @@
                 FontFamily="Chunk Five Print"
                 HorizontalOptions="Center" Margin="0,20,0,20"/>
 
-        <Picker Title="Filtrar por departamento"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Picker para seleccionar departamento -->
+            <Picker Title="Filtrar por departamento"
             ItemsSource="{Binding Departamentos}"
             ItemDisplayBinding="{Binding nombre_departamento}"
             SelectedItem="{Binding SelectedDepartamento}"
             SelectedIndexChanged="DepartamentoPicker_SelectedIndexChanged"
             HorizontalOptions="Start"
-            WidthRequest="300"
+            WidthRequest="200"
             Margin="0,0,0,15"
-            x:Name="DepartamentoPicker" />
+            x:Name="DepartamentoPicker"
+            Grid.Column="0" />
+
+            <!-- Entry para buscar empleados por nombre -->
+            <Entry x:Name="EntryBusqueda"
+               Placeholder="Buscar por nombre"
+               HorizontalOptions="FillAndExpand"
+               Margin="0,0,0,15"
+               Grid.Column="1"
+               TextChanged="EntryBusqueda_TextChanged" />
+
+
+
+        </Grid>
 
         <Grid BackgroundColor="#f0f0f0" Padding="5" ColumnSpacing="1" RowSpacing="11">
             <Grid.RowDefinitions>
@@ -59,14 +79,13 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Text="{Binding solicitud_id}" Grid.Column="0" HorizontalTextAlignment="Start"/>
-                            <Label Text="{Binding usuario_id}" Grid.Column="1" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding nombre_usuario}" Grid.Column="1" HorizontalTextAlignment="Start"/>
                             <Label Text="{Binding fecha_solicitud, StringFormat='{0:dd/MM/yyyy}'}" Grid.Column="2" HorizontalTextAlignment="Start"/>
                             <!--<Label Text="{Binding tipo_permiso}" Grid.Column="4"  HorizontalTextAlignment="Start"/>-->
                             <Label Text="{Binding estado_aprobacion}" Grid.Column="3"  HorizontalTextAlignment="Start"/>
 
                             <StackLayout Grid.Column="4" Orientation="Horizontal">
-                                <ImageButton Source="editicon.png"  Clicked="EditarButton_Clicked" Margin="3,5,3,4" />
-                                <ImageButton Source="deleteicon.png"  Clicked="EliminarButton_Clicked" Margin="-20,5,3,4" />
+                                <ImageButton Source="detalleicon.png"  Clicked="RevisionButton_Clicked" Margin="3,5,3,4" />
                             </StackLayout>
                         </Grid>
                     </Frame>

@@ -53,6 +53,7 @@ namespace movil_app.Page
                     MotivoEditor.Text = solicitud.motivo;
                     HoraInicio.Time = detalleHoras.HoraInicio;
                     HoraFin.Time = detalleHoras.HoraFin;
+                    FechaPermiso.Date = detalleHoras.FechaPermiso;
                 }
                 else
                 {
@@ -79,9 +80,9 @@ namespace movil_app.Page
             var horaMinima = new TimeSpan(8, 0, 0);
             var horaMaxima = new TimeSpan(18, 0, 0);
 
-            if (horaInicio < horaMinima || horaFin > horaMaxima || horaFin < horaMinima)
+            if (horaInicio < horaMinima || horaFin > horaMaxima)
             {
-                await DisplayAlert("Error", "Las horas de inicio y fin deben estar entre las 8:00 AM y las 6:00 PM.", "OK");
+                await DisplayAlert("Error", "El horario solicitado debe estar entre las 8:00 AM y las 6:00 PM.", "OK");
                 return;
             }
 
@@ -97,7 +98,8 @@ namespace movil_app.Page
                 DetallesHoras = new DetallesSolicitudHorasModel
                 {
                     HoraInicio = HoraInicio.Time,
-                    HoraFin = HoraFin.Time
+                    HoraFin = HoraFin.Time,
+                    FechaPermiso = FechaPermiso.Date,
                 }
             };
 

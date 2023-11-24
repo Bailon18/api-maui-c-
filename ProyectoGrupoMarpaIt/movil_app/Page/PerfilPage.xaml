@@ -1,0 +1,63 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="movil_app.Page.PerfilPage"
+             Title="Perfil">
+
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+
+            <Label Text="Perfil de Usuario" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,20" />
+
+            <Frame CornerRadius="10" BorderColor="LightGray" HasShadow="True" Padding="15">
+                <Grid ColumnSpacing="10" RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="0">
+                        <Label Text="Nombre Completo" FontSize="Medium" FontAttributes="Bold" Margin="0,0,10,0" />
+                        <Label Text="{Binding NombreCompleto}" FontSize="Medium" HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="1">
+                        <Label Text="Correo" FontSize="Medium" FontAttributes="Bold" Margin="0,0,10,0" />
+                        <Label Text="{Binding correo}" FontSize="Medium" HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="2">
+                        <Label Text="Rol" FontSize="Medium" FontAttributes="Bold" Margin="0,0,10,0" />
+                        <Label Text="{Binding nombre_rol}" FontSize="Medium" HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="3">
+                        <Label Text="Departamento" FontSize="Medium" FontAttributes="Bold" Margin="0,0,20,0" />
+                        <Label Text="{Binding nombre_departamento}" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="4">
+                        <Label Text="Estado" FontSize="Medium" FontAttributes="Bold" Margin="0,0,10,0" />
+                        <Label Text="{Binding estado}" FontSize="Medium" HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="5">
+                        <Label Text="Código Empleado" FontSize="Medium" FontAttributes="Bold" Margin="0,0,10,0" />
+                        <Label Text="{Binding codigoempleado}" FontSize="Medium" HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15" Grid.Row="6">
+                        <Label Text="Fecha de Ingreso" FontSize="Medium" FontAttributes="Bold" Margin="0,0,10,0" />
+                        <Label Text="{Binding fecha_ingreso, StringFormat='Ingreso: {0:dd/MM/yyyy}'}" FontSize="Medium" HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

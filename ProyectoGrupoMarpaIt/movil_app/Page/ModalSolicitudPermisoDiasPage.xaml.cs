@@ -7,14 +7,15 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
 {
     UsuarioModel usuariologeado { get; set; }
     private readonly PermisosServices _permisosServices;
-    private int _solicitudId; 
+    private int _solicitudId;
 
     public ModalSolicitudPermisoDiasPage(int solicitud_id = 0)
     {
         InitializeComponent();
 
 
-
+        FechaInicio.DateSelected += CalcularDiasPermiso;
+        FechaFin.DateSelected += CalcularDiasPermiso;
 
 
         _permisosServices = new PermisosServices();
@@ -37,6 +38,37 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
         }
     }
 
+    private void CalcularDiasPermiso(object sender, DateChangedEventArgs e)
+    {
+        if (FechaInicio.Date == default || FechaFin.Date == default)
+        {
+            return; 
+        }
+
+        if (FechaInicio.Date > FechaFin.Date)
+        {
+            DisplayAlert("Error", "La fecha de inicio no puede ser mayor que la fecha final", "OK");
+            FechaInicio.Date = e.OldDate;
+            return;
+        }
+
+        if (FechaInicio.Date.DayOfWeek == DayOfWeek.Saturday || FechaInicio.Date.DayOfWeek == DayOfWeek.Sunday ||
+            FechaFin.Date.DayOfWeek == DayOfWeek.Saturday || FechaFin.Date.DayOfWeek == DayOfWeek.Sunday)
+        {
+            DisplayAlert("Mensaje", "Por favor, elige días laborables (de lunes a viernes).", "OK");
+            FechaInicio.Date = e.OldDate; 
+            FechaFin.Date = e.OldDate;
+            return; 
+        }
+
+   
+        TimeSpan diferencia = FechaFin.Date - FechaInicio.Date;
+        int diasDeDiferencia = diferencia.Days;
+
+        DiasPermisoEntry.Text = diasDeDiferencia.ToString();
+    }
+
+
 
     private async void LlenarDetallesSolicitud()
     {
@@ -48,12 +80,15 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
 
             DetallesSolicitudDiasModel detalledias = await _permisosServices.ObtenerDetallesPorDiasSolicitudId(_solicitudId);
 
+
             if (solicitud != null && detalledias != null)
             {
                 MotivoEditor.Text = solicitud.motivo;
                 CuentaDiasSwitch.IsToggled = solicitud.cuenta_vacaciones;
                 FechaInicio.Date = detalledias.FechaInicio;
                 FechaFin.Date = detalledias.FechaFin;
+                DiasPermisoEntry.Text = detalledias.DiasPermisos.ToString();
+
             }
             else
             {
@@ -94,7 +129,8 @@ public partial class ModalSolicitudPermisoDiasPage : ContentPage
             DetallesDias = new DetallesSolicitudDiasModel
             {
                 FechaInicio = FechaInicio.Date,
-                FechaFin = FechaFin.Date
+                FechaFin = FechaFin.Date,
+                DiasPermisos = int.Parse(DiasPermisoEntry.Text)
             }
         };
 

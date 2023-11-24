@@ -874,6 +874,9 @@
     <AppxPackagedFile Include="C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\deleteicon.scale-100.png">
       <PackagePath>deleteicon.scale-100.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\detalleicon.scale-100.png">
+      <PackagePath>detalleicon.scale-100.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
       <PackagePath>dotnet_bot.scale-100.png</PackagePath>
     </AppxPackagedFile>

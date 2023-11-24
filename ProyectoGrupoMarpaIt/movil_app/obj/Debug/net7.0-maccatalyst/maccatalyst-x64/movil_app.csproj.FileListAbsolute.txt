@@ -528,3 +528,4 @@ C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-maccatalyst\maccatalyst-x64\ref\movil_app.dll
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-maccatalyst\maccatalyst-x64\resizetizer\r\Resources\deleteicon.png
 C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-maccatalyst\maccatalyst-x64\resizetizer\r\Resources\editicon.png
+C:\Users\user\Desktop\api-maui-c-\ProyectoGrupoMarpaIt\movil_app\obj\Debug\net7.0-maccatalyst\maccatalyst-x64\resizetizer\r\Resources\detalleicon.png

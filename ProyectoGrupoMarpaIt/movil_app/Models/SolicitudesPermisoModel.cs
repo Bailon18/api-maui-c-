@@ -16,6 +16,7 @@ namespace movil_app.Models
         public bool cuenta_dias_laborales { get; set; }
         public bool goce_sueldo { get; set; }
         public string tipo_permiso { get; set; }
+        public string? nombre_usuario { get; set; } // aqui quiero que inserte el nombre y apellido cuando conccidenen la lista 
         public DateTime? fecha_solicitud { get; set; }
     }
 }

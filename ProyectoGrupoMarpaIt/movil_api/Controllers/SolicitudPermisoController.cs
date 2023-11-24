@@ -3,6 +3,7 @@ using movil_api.Datos;
 using movil_api.Modelo;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace movil_api.Controllers
@@ -145,6 +146,7 @@ namespace movil_api.Controllers
         }
 
 
+
         [HttpPut("actualizar-solicitud-completa")]
         public async Task<ActionResult<bool>> ActualizarSolicitudCompleta([FromBody] SolicitudCompletaModel solicitudCompletaModel)
         {
@@ -169,6 +171,8 @@ namespace movil_api.Controllers
             }
         }
 
+
+
         [HttpGet("detallesHoras/{solicitudId}")] 
         public async Task<ActionResult<DetallesSolicitudHorasModel>> ObtenerDetallesHorasPorSolicitudId(int solicitudId)
         {
@@ -189,6 +193,114 @@ namespace movil_api.Controllers
             {
                 Console.WriteLine($"Error al obtener detalles por solicitud_id: {ex.Message}");
                 return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
+
+        [HttpGet("buscar")]
+        public async Task<ActionResult<List<SolicitudesPermisoModel>>> BuscarSolicitudesPorNombreOApellido(string nombreOApellido)
+        {
+            try
+            {
+                var listaSolicitudes = await _solicitudesPermisoD.BuscarSolicitudesPorNombreOApellido(nombreOApellido);
+                return Ok(listaSolicitudes);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al buscar las solicitudes por nombre o apellido: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
+
+        [HttpPut("cambiar-estado/{solicitudId}/{nuevoEstado}/{cuenta_vacaciones}/{goce_sueldo}")]
+        public async Task<ActionResult<bool>> aprobacion(int solicitudId, string nuevoEstado, bool cuenta_vacaciones, bool goce_sueldo)
+        {
+            try
+            {
+                var cambioExitoso = await _solicitudesPermisoD.aprobacion(solicitudId, nuevoEstado,  cuenta_vacaciones,  goce_sueldo);
+
+                if (cambioExitoso)
+                {
+                    return Ok(true);
+                }
+                else
+                {
+                    return StatusCode(500, "Error al cambiar el estado de la solicitud");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cambiar el estado de la solicitud: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
+
+        [HttpGet("calendarizacion/{usuarioId}")]
+        public async Task<IActionResult> ObtenerInformacion(int usuarioId)
+        {
+            try
+            {
+                var calendarizacion = await _calendarizacionService.ObtenerInformacionCalendarizacion(usuarioId);
+                if (calendarizacion != null)
+                {
+                    return Ok(calendarizacion);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener información de Calendarizacion: {ex.Message}");
+            }
+        }
+
+
+        [HttpPut("calendarizacion/{usuarioId}")]
+        public async Task<IActionResult> Actualizar(int usuarioId, [FromBody] CalendarizacionModel calendarizacion)
+        {
+            try
+            {
+                bool actualizacionExitosa = await _calendarizacionService.ActualizarCalendarizacion(usuarioId, calendarizacion.dias_totales, calendarizacion.dias_tomados, calendarizacion.dias_restantes);
+                if (actualizacionExitosa)
+                {
+                    return Ok("Actualización exitosa en Calendarizacion");
+                }
+                else
+                {
+                    return BadRequest("No se pudo actualizar la información en Calendarizacion");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar la tabla Calendarizacion: {ex.Message}");
+            }
+        }
+
+        [HttpPost("calendarizacion")]
+        public async Task<IActionResult> Insertar([FromBody] CalendarizacionModel calendarizacion)
+        {
+            try
+            {
+                bool insercionExitosa = await _calendarizacionService.InsertarEnCalendarizacion(calendarizacion.usuario_id, calendarizacion.dias_totales, calendarizacion.dias_tomados, calendarizacion.dias_restantes);
+                if (insercionExitosa)
+                {
+                    return Ok("Inserción exitosa en Calendarizacion");
+                }
+                else
+                {
+                    return BadRequest("No se pudo insertar en la tabla Calendarizacion");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al insertar en la tabla Calendarizacion: {ex.Message}");
             }
         }
 

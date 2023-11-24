@@ -15,7 +15,7 @@
 
                 <!-- Switch para cuentas de días de vacaciones -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,0,15">
-                    <Label Text="¿Cuenta días de vacaciones?" VerticalOptions="Center"/>
+                    <Label Text="¿Cuenta días de vacaciones?" VerticalOptions="Center" Margin="0,0,10,10"/>
                     <Switch x:Name="CuentaDiasSwitch" IsToggled="false" VerticalOptions="Center"/>
                 </StackLayout>
 
@@ -30,6 +30,12 @@
                         <DatePicker WidthRequest="150" x:Name="FechaFin" />
                     </StackLayout>
                 </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15">
+                    <Label Text="Días de permiso:" FontSize="14" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    <Entry Placeholder="Días de permiso" Keyboard="Numeric" x:Name="DiasPermisoEntry" />
+                </StackLayout>
+
 
                 <Label Text="Motivo" FontSize="14" Margin="0,0,0,5"/>
                 <Editor Placeholder="Escribe el motivo aquí" HeightRequest="100" Margin="0,0,0,15" x:Name="MotivoEditor"/>
